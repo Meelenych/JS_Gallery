@@ -50,6 +50,8 @@ const button = document.querySelector('.lightbox__button')
 // console.log(button)
 const close = function () {
     lightbox.classList.remove('is-open');
+    image.src = '';
+    image.alt = '';
 }
 
 button.addEventListener('click', () => {
@@ -64,21 +66,37 @@ window.addEventListener('keydown', (e) => {
     if (e.code === "Escape")
     { close() }
 })
-//===========================Слайдер - пока не работает========================================
+//===========================Слайдер========================================
+
 window.addEventListener('keydown', (e) => {
     //console.log(e.code)
-
-    const imgSrc = galleryItems.map(source => {
+    const items = galleryItems.map(source => {
         return source.original
     })
+    //console.dir(items)
 
-    //console.log(imgSrc)
+    let imgIndex = 0;
 
-    if (e.code === "ArrowRight")
-    {image.setAttribute('src', `${imgSrc[imgSrc.length += 1]}`)}
-    
-    if (e.code === "ArrowLeft")
-    { image.setAttribute('src', `${imgSrc[imgSrc.length -= 1]}`)}
+    items.forEach((item, index, arr) => { 
+        //console.log(item)
+
+        let nextImg = function () {
+            return imgIndex = index + 1
+        }
+            
+        let prevImg = function () {
+            return imgIndex = index - 1
+        }
+
+        if (e.code === "ArrowRight") {
+            nextImg()
+        }
+        
+        else if (e.code === "ArrowLeft") {
+            prevImg()
+        }
+
+       return image.setAttribute('src', `${items[imgIndex]}`)
+    })
 })
 
-//console.dir(image)
