@@ -8,7 +8,7 @@ const list = document.querySelector('.gallery')
 list.classList.add('gallery')
 //console.log(list)
 
-const galleryCreator = galleryItems.map(({ preview, description, original }) => { 
+const galleryCreator =  galleryItems.map(({ preview, description, original }) => { 
 
 const line = document.createElement('li');
 line.classList.add('gallery__item')
@@ -24,11 +24,14 @@ img.classList.add('gallery__image')
 
     ref.appendChild(img)
     line.appendChild(ref)
-    list.appendChild(line)
-       
-    
-return list
+   
+    return line
 })
+
+console.log(galleryCreator)
+
+ list.append(...galleryCreator)
+
 //==============================Доступы=====================================
 const lightbox = document.querySelector('.lightbox')
 // console.log(lightbox)
@@ -54,18 +57,30 @@ const close = function () {
     image.alt = '';
 }
 
-button.addEventListener('click', () => {
-   close()
-})
+// if (lightbox.classList.contains('is-open')) {
+    button.addEventListener('click', () => {
+        close()
+    })
 
-overlay.addEventListener('click', () => {
-   close()
-})
+    overlay.addEventListener('click', () => {
+        close()
+    })
 
-window.addEventListener('keydown', (e) => {
-    if (e.code === "Escape")
-    { close() }
-})
+    window.addEventListener('keydown', (e) => {
+        if (e.code === "Escape") { close() }
+    })
+// }
+    
+// else {
+//     button.removeEventListener('click', close)
+
+//     overlay.removeEventListener('click', close)
+
+//     window.removeEventListener('keydown', close)
+// }
+
+
+
 //===========================Слайдер========================================
 
 window.addEventListener('keydown', (e) => {
