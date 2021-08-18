@@ -28,7 +28,7 @@ img.classList.add('gallery__image')
     return line
 })
 
-console.log(galleryCreator)
+// console.log(galleryCreator)
 
  list.append(...galleryCreator)
 
@@ -88,34 +88,41 @@ const close = function () {
 //===========================Слайдер========================================
 
 window.addEventListener('keydown', (e) => {
-    //console.log(e.code)
-    const items = galleryItems.map(source => {
-        return source.original
-    })
-    //console.dir(items)
+    console.log(e.code)
 
-    let imgIndex = 0;
 
-    items.forEach((item, index, arr) => { 
-        //console.log(item)
+    function getActiveIndex() {
+        return galleryItems.findIndex(img => img.original === image.src);
+    }
 
-        let nextImg = function () {
-            return imgIndex = index + 1
+    let index = getActiveIndex() ? getActiveIndex() : 0;
+    
+    console.log(index)
+
+
+    let nextImg = function () {
+        if (index === galleryItems.length - 1) {
+            return index = galleryItems.length - 1
         }
+        return index++
+    }
             
-        let prevImg = function () {
-            return imgIndex = index - 1
+    let prevImg = function () {
+        if (index === 0) {
+           return index = 0
         }
+        return index--
+    }
 
-        if (e.code === "ArrowRight") {
-            nextImg()
-        }
+    if (e.code === "ArrowRight") {
+        nextImg()
+    }
         
-        else if (e.code === "ArrowLeft") {
-            prevImg()
-        }
+    else if (e.code === "ArrowLeft") {
+        prevImg()
+    }
 
-       return image.setAttribute('src', `${items[imgIndex]}`)
-    })
+    return image.setAttribute('src', `${galleryItems[index].original}`)
+        
 })
 
